@@ -11,7 +11,7 @@
 
   import ECharts from 'vue-echarts'
   import echarts from 'echarts'
-  import {mapState, mapMutations} from 'Vuex'
+  import {mapState} from 'Vuex'
 
   export default {
     name: "ProvinceChart",
@@ -107,7 +107,6 @@
         data: this.findOneProvince(name, this.provinceData[key]),
         prevData: this.findOneProvince(name, this.findPrevDay(key))
       }))
-      console.log(chartData)
       chartData = chartData.filter(item => item.data && item.prevData).map(item => ({
         date: item.date,
         dateInt: parseInt(item.date.replace(dateReg, "")),

@@ -69,9 +69,7 @@
     },
     async mounted() {
       const {data: provinceData} = await axios.get('./json/area.json')
-      const {data: timeLineData} = await axios.get('./json/timeline.json')
       this.setProvinceData(provinceData)
-      this.setTimeLineData(timeLineData)
       let counter = 1
       const latestProvinceData = this.getLatestProvinceData(provinceData)
       const chinaData = {
@@ -99,6 +97,8 @@
           name: city.cityName
         }))
       }))]
+      const {data: timeLineData} = await axios.get('./json/timeline.json')
+      this.setTimeLineData(timeLineData)
     }
   }
 </script>
