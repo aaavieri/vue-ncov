@@ -39,8 +39,6 @@
 
   import {mapState, mapMutations} from 'Vuex'
   import axios from 'axios'
-  import ECharts from 'vue-echarts'
-  import echarts from 'echarts'
 
   export default {
     name: "ProvinceList",

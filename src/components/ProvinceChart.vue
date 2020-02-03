@@ -9,8 +9,9 @@
 <script>
   /* eslint-disable no-unused-vars,no-console */
 
-  import ECharts from 'vue-echarts'
   import echarts from 'echarts'
+  import  'echarts/lib/chart/bar';
+  import ECharts from 'vue-echarts'
   import {mapState} from 'Vuex'
 
   export default {
