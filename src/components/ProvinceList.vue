@@ -66,8 +66,12 @@
       }
     },
     async mounted() {
-      const {data: provinceData} = await axios.get('./json/area.json')
-      this.setProvinceData(provinceData)
+      let provinceData = this.provinceData
+      if (Object.keys(this.provinceData).length === 0) {
+        const {data} = await axios.get('./json/area.json')
+        this.setProvinceData(data)
+        provinceData = data
+      }
       let counter = 1
       const latestProvinceData = this.getLatestProvinceData(provinceData)
       const chinaData = {
@@ -95,8 +99,10 @@
           name: city.cityName
         }))
       }))]
-      const {data: timeLineData} = await axios.get('./json/timeline.json')
-      this.setTimeLineData(timeLineData)
+      if (this.timeLineData.length === 0) {
+        const {data: timeLineData} = await axios.get('./json/timeline.json')
+        this.setTimeLineData(timeLineData)
+      }
     }
   }
 </script>

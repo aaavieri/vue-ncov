@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     timeLineData: [],
-    provinceData: []
+    provinceData: {}
   },
   mutations: {
     setTimeLineData: (state, timeLineData) => {

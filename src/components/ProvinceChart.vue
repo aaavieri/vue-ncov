@@ -10,7 +10,8 @@
   /* eslint-disable no-unused-vars,no-console */
 
   import echarts from 'echarts'
-  import  'echarts/lib/chart/bar';
+  import 'echarts/lib/chart/bar'
+  import 'echarts/lib/component/tooltip'
   import ECharts from 'vue-echarts'
   import {mapState} from 'Vuex'
 
