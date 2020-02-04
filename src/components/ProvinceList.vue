@@ -69,36 +69,40 @@
       let provinceData = this.provinceData
       if (Object.keys(this.provinceData).length === 0) {
         const {data} = await axios.get('./json/area.json')
+        Object.keys(data).forEach(key => {
+          const chinaData = {
+            name: "全国",
+            provinceShortName: "全国",
+            cities: [],
+            ...data[key].reduce((total, province) => {
+              return {
+                confirmedCount: total.confirmedCount + province.confirmedCount,
+                deadCount: total.deadCount + province.deadCount,
+                curedCount: total.curedCount + province.curedCount
+              }
+            }, {
+              confirmedCount: 0,
+              deadCount: 0,
+              curedCount: 0
+            })
+          }
+          data[key] = [chinaData, ...data[key]]
+        })
         this.setProvinceData(data)
         provinceData = data
       }
       let counter = 1
       const latestProvinceData = this.getLatestProvinceData(provinceData)
-      const chinaData = {
-        name: "全国",
-        cities: [],
-        ...latestProvinceData.reduce((total, province) => {
-          return {
-            confirmedCount: total.confirmedCount + province.confirmedCount,
-            deadCount: total.deadCount + province.deadCount,
-            curedCount: total.curedCount + province.curedCount
-          }
-        }, {
-          confirmedCount: 0,
-          deadCount: 0,
-          curedCount: 0
-        })
-      }
-      this.tableData = [chinaData, ...latestProvinceData.map(province => ({
+      this.tableData = latestProvinceData.map(province => ({
         ...province,
         id: counter++,
-        name: province.provinceShortName,
+        name: province.provinceShortName || province.name,
         cities: province.cities.map(city => ({
           ...city,
           id: counter++,
           name: city.cityName
         }))
-      }))]
+      }))
       if (this.timeLineData.length === 0) {
         const {data: timeLineData} = await axios.get('./json/timeline.json')
         this.setTimeLineData(timeLineData)

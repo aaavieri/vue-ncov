@@ -90,10 +90,10 @@
       goBack() {
         this.$router.go(-1)
       },
-      findPrevDay(key) {
+      getPrevDayKey(key) {
         const date = new Date(key)
         const prevDay = new Date(date.getTime() - 24 * 60 * 60 * 1000)
-        return this.provinceData[this.dateFormat(prevDay, "yyyy/MM/dd")]
+        return this.dateFormat(prevDay, "yyyy/MM/dd")
       },
       findOneProvince(name, allProvinces) {
         if (!allProvinces) return null
@@ -107,7 +107,7 @@
       let chartData = Object.keys(this.provinceData).map(key => ({
         date: key,
         data: this.findOneProvince(name, this.provinceData[key]),
-        prevData: this.findOneProvince(name, this.findPrevDay(key))
+        prevData: this.findOneProvince(name, this.provinceData[this.getPrevDayKey(key)])
       }))
       chartData = chartData.filter(item => item.data && item.prevData).map(item => ({
         date: item.date,
